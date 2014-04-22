@@ -1,0 +1,23 @@
+--
+-- 表的结构 `img_cat`
+--
+
+CREATE TABLE IF NOT EXISTS `img_cat` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `img_cat_detail`
+--
+
+CREATE TABLE IF NOT EXISTS `img_cat_detail` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `cat_id` int(5) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
