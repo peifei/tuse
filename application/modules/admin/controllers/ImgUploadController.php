@@ -15,9 +15,21 @@ class Admin_ImgUploadController extends Zend_Controller_Action
         $request=$this->getRequest();
         if($request->isPost()){
             if($form->isValid($request->getPost())){
-                $form->getValue('img');
+                try{
+                    $img=$form->getValue('img');
+                    $this->forward('complete','img-upload','admin',array('img'=>$img));
+                }catch(Exception $e){
+                    echo $e->getMessage();
+                }
             }
         }
+    }
+    
+    public function completeAction(){
+        $img=$this->getRequest()->getParam('img');
+        $this->view->img=$img;
+        $form=new Admin_Form_ImgSet();
+        $this->view->form=$form;
     }
 
 

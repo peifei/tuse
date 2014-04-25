@@ -1,0 +1,38 @@
+<style type="text/css">
+<!--
+-->
+</style>
+<h3 class="page-header">完善图片信息</h3>
+<div class="col-sm-4">
+<img src="<?php echo SITE_BASE_URL.'/temp/'.$this->img?>" width="280px" />
+</div>
+<div class="col-sm-8">
+<?php echo $this->form ?>
+<ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a data-toggle="tab" href="fl1">分类一</a></li>
+    <li><a data-toggle="tab" href="#fl2">分类二</a></li>
+    <li><a data-toggle="tab" href="#fl3">分类三</a></li>
+    <li><a data-toggle="tab" href="#fl4">分类四</a></li>
+</ul>
+<div class="tab-content" id="myTabContent">
+      <div id="fl1" class="tab-pane fade in active">
+      	<p>fl1</p>
+      </div>
+      <div id="fl2" class="tab-pane fade">
+      	<p>fl2</p>
+      </div>
+      <div id="fl3" class="tab-pane fade">
+      	<p>fl3</p>
+      </div>
+      <div id="fl4" class="tab-pane fade">
+      	<p>fl4</p>
+      </div>
+</div>
+</div>
+<script type="text/javascript">
+$('#myTab a').click(function (e) {
+	  e.preventDefault()
+	  $(this).tab('show')
+	})
+
+</script>

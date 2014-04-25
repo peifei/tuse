@@ -37,6 +37,7 @@
             <formFile formName="Cat"/>
             <formFile formName="CatDetail"/>
             <formFile formName="ImgUpload"/>
+            <formFile formName="ImgSet"/>
           </formsDirectory>
           <layoutsDirectory enabled="false"/>
           <modelsDirectory>
