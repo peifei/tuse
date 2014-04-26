@@ -59,7 +59,7 @@ class Admin_Model_Class_ImgCatDetail
             $res=$this->dbImgCatDetail->fetchAll(null,'cat_id asc');
             $cats=array();
             foreach ($res as $re){
-                $cats[$re['cat_id']][]=$re['name'];
+                $cats[$re['cat_id']][$re['id']]=$re['name'];
             }
             return $cats;
         }catch(Exception $e){

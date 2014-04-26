@@ -13,6 +13,8 @@ class Admin_Form_ImgSet extends Zend_Form
         $imgDate->setLabel('设置图片展示日期');
         $imgDate->setAttribs(array('class'=>'form-control'));
         $imgCats=new Zend_Form_Element_Hidden('cats');
+        $imgCats->setDecorators(array('ViewHelper'));
+        $imgCats->setValue('');
         $smtBtn=new Zend_Form_Element_Submit('smtBtn');
         $smtBtn->setLabel('提交');
         $smtBtn->setAttribs(array('class'=>'btn btn-primary'));
