@@ -51,5 +51,20 @@ class Admin_Model_Class_ImgCatDetail
             throw new Exception('图片类别明细查找失败');
         }
     }
+    /**
+     * 取得类别明细，并按主类id进行分组
+     */
+    public function getCatDetails(){
+        try{
+            $res=$this->dbImgCatDetail->fetchAll(null,'cat_id asc');
+            $cats=array();
+            foreach ($res as $re){
+                $cats[$re['cat_id']][]=$re['name'];
+            }
+            return $cats;
+        }catch(Exception $e){
+            throw new Exception('图片类别明细查找失败');
+        }
+    }
 }
 ?>

@@ -45,7 +45,7 @@ class Admin_Model_Class_ImgCat
      */
     public function getCats(){
         try{
-            $res=$this->dbImgCat->fetchAll();
+            $res=$this->dbImgCat->fetchAll(null,'id asc');
             return $res->toArray();
         }catch(Exception $e){
             throw new Exception('图片类别查找失败');

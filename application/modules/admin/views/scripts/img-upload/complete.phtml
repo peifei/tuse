@@ -8,26 +8,39 @@
 </div>
 <div class="col-sm-8">
 <?php echo $this->form ?>
+<?php if(count($this->cats)>0){?>
 <ul class="nav nav-tabs" id="myTab">
-    <li class="active"><a data-toggle="tab" href="fl1">分类一</a></li>
-    <li><a data-toggle="tab" href="#fl2">分类二</a></li>
-    <li><a data-toggle="tab" href="#fl3">分类三</a></li>
-    <li><a data-toggle="tab" href="#fl4">分类四</a></li>
+<?php 
+    $i=0;
+    foreach($this->cats as $cat){
+	    if(0==$i){
+	        echo '<li class="active"><a data-toggle="tab" href="fl'.$cat['id'].'">'.$cat['name'].'</a></li>';
+	    }else{
+	        echo '<li><a data-toggle="tab" href="fl'.$cat['id'].'">'.$cat['name'].'</a></li>';
+	    }
+	    $i++;
+    }
+?>
 </ul>
 <div class="tab-content" id="myTabContent">
-      <div id="fl1" class="tab-pane fade in active">
-      	<p>fl1</p>
-      </div>
-      <div id="fl2" class="tab-pane fade">
-      	<p>fl2</p>
-      </div>
-      <div id="fl3" class="tab-pane fade">
-      	<p>fl3</p>
-      </div>
-      <div id="fl4" class="tab-pane fade">
-      	<p>fl4</p>
-      </div>
+	<?php
+	    $m=0; 
+	    foreach ($this->catDetails as $key=>$values){ 
+			if(0==$m){
+			    echo '<div id="fl'.$key.'" class="tab-pane fade in active">';
+			}else{
+			    echo '<div id="fl'.$key.'" class="tab-pane fade">';
+			}
+			
+			foreach($values as $value){
+			    echo '<span>'.$value.'</span>';
+			}
+            echo '</div>';
+	        $m++;
+	    }
+	?>
 </div>
+<?php }?>
 </div>
 <script type="text/javascript">
 $('#myTab a').click(function (e) {
