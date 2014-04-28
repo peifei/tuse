@@ -44,6 +44,8 @@
             <dbTableDirectory>
               <dbTableFile dbTableName="ImgCat"/>
               <dbTableFile dbTableName="ImgCatDetail"/>
+              <dbTableFile dbTableName="Img"/>
+              <dbTableFile dbTableName="ImgCatRel"/>
             </dbTableDirectory>
           </modelsDirectory>
           <viewsDirectory>

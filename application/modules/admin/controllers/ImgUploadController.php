@@ -30,7 +30,7 @@ class Admin_ImgUploadController extends Zend_Controller_Action
         $img=$this->getRequest()->getParam('img');
         $this->view->img=$img;
         //显示表单
-        $form=new Admin_Form_ImgSet();
+        $form=new Admin_Form_ImgSet($img);
         $this->view->form=$form;
         //取得所有主分类
         $clImgCat=new Admin_Model_Class_ImgCat();
@@ -40,6 +40,15 @@ class Admin_ImgUploadController extends Zend_Controller_Action
         $clImgCatDetail=new Admin_Model_Class_ImgCatDetail();
         $catDetails=$clImgCatDetail->getCatDetails();
         $this->view->catDetails=$catDetails;
+        
+        $request=$this->getRequest();
+        $smt=$request->getParam('smtSetBtn');
+        if($request->isPost()&&isset($smt)){
+            if($form->isValid($request->getPost())){
+                echo $img;
+            }
+        }
+        
         
     }
 

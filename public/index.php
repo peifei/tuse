@@ -1,5 +1,6 @@
 <?php
 define('SITE_BASE_URL','http://127.0.0.1/tuse/public');
+define('PUBLIC_PATH',realpath(dirname(__FILE__)));
 
 // Define path to application directory
 defined('APPLICATION_PATH')

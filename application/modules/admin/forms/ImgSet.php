@@ -2,6 +2,11 @@
 
 class Admin_Form_ImgSet extends Zend_Form
 {
+    public $imgName=null;
+    public function __construct($img){
+        $this->imgName=$img;
+        parent::__construct();
+    }
 
     public function init()
     {
@@ -14,15 +19,17 @@ class Admin_Form_ImgSet extends Zend_Form
         $imgDate->setAttribs(array('class'=>'form-control'));
         $imgCats=new Zend_Form_Element_Hidden('cats');
         $imgCats->setDecorators(array('ViewHelper'));
-        $imgCats->setValue('');
-        $smtBtn=new Zend_Form_Element_Submit('smtBtn');
+        $imgName=new Zend_Form_Element_Hidden('img_name');
+        $imgName->setValue($this->imgName);
+        $imgName->setDecorators(array('ViewHelper'));
+        $smtBtn=new Zend_Form_Element_Submit('smtSetBtn');
         $smtBtn->setLabel('提交');
         $smtBtn->setAttribs(array('class'=>'btn btn-primary'));
         $smtBtn->setDecorators(array(
                                      array('HtmlTag',array('tag'=>'div','class'=>'catInfo')),
                                      'ViewHelper'
                                 ));
-        $this->addElements(array($imgText,$imgDate,$imgCats,$smtBtn));
+        $this->addElements(array($imgText,$imgDate,$imgCats,$imgName,$smtBtn));
                 
     }
 

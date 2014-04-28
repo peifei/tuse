@@ -6,6 +6,7 @@
 .tab-pane span:hover,.catInfo span:hover{cursor: pointer; background-color: #aaaaaa; color:#ffffff}
 #text,#show_date{width: 300px}
 </style>
+<link href="<?php echo SITE_BASE_URL?>/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
 <h3 class="page-header">完善图片信息</h3>
 <div class="col-sm-4">
 <img src="<?php echo SITE_BASE_URL.'/temp/'.$this->img?>" width="280px" class="img-thumbnail" />
@@ -46,6 +47,9 @@
 </div>
 <?php }?>
 </div>
+<script src="<?php echo SITE_BASE_URL?>/js/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="<?php echo SITE_BASE_URL?>/js/jquery.ui.datepicker-zh-CN.js"></script>
+<link href="<?php echo SITE_BASE_URL?>css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
 <script type="text/javascript">
 $(function(){
 	$('#cats').val('');
@@ -66,6 +70,8 @@ $(function(){
 		$(this).remove();
 		refreshCatId();
 	});
+
+	$("#show_date").datepicker();
 	
 })
 
