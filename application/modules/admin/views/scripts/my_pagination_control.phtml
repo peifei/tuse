@@ -1,0 +1,32 @@
+<?php if ($this->pageCount): ?>
+<div class="paginationControl">
+<!-- Previous page link -->
+<?php if (isset($this->previous)): ?>
+  <a href="#" onclick="changePage(<?php echo $this->previous?>)">
+    &lt; 前一页
+  </a> |
+<?php else: ?>
+  <span class="disabled">&lt; 前一页</span> |
+<?php endif; ?>
+ 
+<!-- Numbered page links -->
+<?php foreach ($this->pagesInRange as $page): ?>
+  <?php if ($page != $this->current): ?>
+    <a href="#" onclick="changePage(<?php echo $page ?>)">
+        <?php echo $page; ?>
+    </a> |
+  <?php else: ?>
+    <?php echo $page; ?> |
+  <?php endif; ?>
+<?php endforeach; ?>
+ 
+<!-- Next page link -->
+<?php if (isset($this->next)): ?>
+  <a href="#" id="nextpage" onclick="changePage(<?php echo $this->next?>)">
+    后一页  &gt;
+  </a>
+<?php else: ?>
+  <span class="disabled">后一页 &gt;</span>
+<?php endif; ?>
+</div>
+<?php endif; ?>

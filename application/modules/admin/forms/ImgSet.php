@@ -10,6 +10,7 @@ class Admin_Form_ImgSet extends Zend_Form
 
     public function init()
     {
+        $this->setAction(SITE_BASE_URL.'/admin/img-upload/complete');
         /* Form Elements & Other Definitions Here ... */
         $imgText=new Zend_Form_Element_Text('text');
         $imgText->setLabel('请输入图片的描述性文字');
