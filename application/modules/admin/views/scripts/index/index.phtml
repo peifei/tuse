@@ -1,7 +1,17 @@
+<style type="text/css">
+.img-info{margin-top: 5px; height: 25px; line-height: 25px;}
+.img-info span{font-size: 12px; color:#666666 }
+.img-info .btn{margin-left: 5px} 
+</style>
 <h3 class="page-header">图片管理</h3>
 <?php foreach ($this->paginator as $img){?>
 <div class="col-lg-3">
-<img src="<?php echo SITE_BASE_URL.'/images/resources/'.$img['path']?>" alt="<?php echo $img['text']?>" class="img-thumbnail">
+<img src="<?php echo SITE_BASE_URL.'/images/resources/'.$img['path']?>" alt="<?php echo $img['text']?>" title="<?php echo $img['text']?>" class="img-thumbnail">
+<div class="img-info">
+<span>上传时间:<?php echo $img['upload_time']?></span>
+<a href="#" class="btn btn-primary btn-xs pull-right">修改</a>
+<a href="#" class="btn btn-primary btn-xs pull-right">删除</a>
+</div>
 </div>
 <?php }?>
 <div class="clearfix"></div>

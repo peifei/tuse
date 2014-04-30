@@ -26,10 +26,25 @@ class Admin_Model_Class_Img
     }
     /**
      * 获取文件列表selecter
+     * 主要用于列表分页
      */
     public function getImgListSelecter(){
         $selecter=$this->dbImg->getAdapter()->select()->from('img');
         return $selecter;
+    }
+    /**
+     * 删除图片
+     * @param unknown_type $imgId
+     */
+    public function deleteImg($imgId){
+        $res=$this->dbImg->fetchRow(array('id=?'=>$imgId));
+        if(count($res)==0){
+            throw new Exception('图片不存在');
+        }else{
+            $this->dbImg->deleteImg($imgId);
+            unlink(PUBLIC_PATH.'/images/resources/'.$res['path']);
+        }
+        
     }
 
 }

@@ -22,8 +22,20 @@ class Admin_Model_DbTable_Img extends Zend_Db_Table_Abstract
             $db->commit();
         }catch(Exception $e){
             $db->rollBack();
+            throw new Exception('数据库存储数据异常');
+        }
+    }
+    
+    public function deleteImg($imgId){
+        $db=$this->_db;
+        $db->beginTransaction();
+        try{
+            $db->delete($this->_name,array('id=?'=>$imgId));
+            $db->delete('img_cat_rel',array('imgid=?'=>$imgId));
+            $db->commit();
+        }catch(Exception $e){
+            $db->rollBack();
             throw $e;
-            //throw new Exception('数据库存储数据异常');
         }
     }
 

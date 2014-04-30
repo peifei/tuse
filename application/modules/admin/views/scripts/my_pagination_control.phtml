@@ -1,32 +1,34 @@
 <?php if ($this->pageCount): ?>
 <div class="paginationControl">
+<ul class="pagination">
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="#" onclick="changePage(<?php echo $this->previous?>)">
+  <li><a href="#" onclick="changePage(<?php echo $this->previous?>)">
     &lt; 前一页
-  </a> |
+  </a></li>
 <?php else: ?>
-  <span class="disabled">&lt; 前一页</span> |
+  <li class="disabled"><span>&lt; 前一页</span></li>
 <?php endif; ?>
  
 <!-- Numbered page links -->
 <?php foreach ($this->pagesInRange as $page): ?>
   <?php if ($page != $this->current): ?>
-    <a href="#" onclick="changePage(<?php echo $page ?>)">
+    <li><a href="#" onclick="changePage(<?php echo $page ?>)">
         <?php echo $page; ?>
-    </a> |
+    </a></li>
   <?php else: ?>
-    <?php echo $page; ?> |
+    <li class="active"><span><?php echo $page; ?></span></li>
   <?php endif; ?>
 <?php endforeach; ?>
  
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
-  <a href="#" id="nextpage" onclick="changePage(<?php echo $this->next?>)">
+  <li><a href="#" id="nextpage" onclick="changePage(<?php echo $this->next?>)">
     后一页  &gt;
-  </a>
+  </a></li>
 <?php else: ?>
-  <span class="disabled">后一页 &gt;</span>
+  <li  class="disabled"><span>后一页 &gt;</span></li>
 <?php endif; ?>
+</ul>
 </div>
 <?php endif; ?>

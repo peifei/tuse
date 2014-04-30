@@ -15,9 +15,12 @@ class Admin_Service_Imgupload
             }
             $data['path']=$imgPath;
             $this->saveData($data);
-            unlink($this->originFile);
         }catch (Exception $e){
-            unlink($this->destFile);
+            $errorCode=$e->getCode();
+            if(101!=$errorCode){
+                unlink($this->destFile);
+            }
+            unlink($this->originFile);
             throw $e;
         }
     }
@@ -37,13 +40,14 @@ class Admin_Service_Imgupload
 		$this->destFile=$destFile;
 		//检测同名文件是否已经存在
 		if(!file_exists($destFile)){
-    		if(copy($originFile, $destFile)){
+    		if(rename($originFile, $destFile)){
     		    return $imgDir.'/'.$imgName;
     		}else{
     		    throw new Exception('文件移动失败');
     		}
 		}else{
-		    throw new Exception('同名文件已经存在，请重命名上传文件');
+		    //设定error code的目的是为了在捕获异常的时候做判断
+		    throw new Exception('同名文件已经存在，请重命名上传文件','101');
 		}
     }
     
