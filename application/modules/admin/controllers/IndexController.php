@@ -53,13 +53,14 @@ class Admin_IndexController extends Zend_Controller_Action
         try{
             $id=$this->getRequest()->getParam('id');
             if(preg_match('/^\d+$/', $id)){
-                //TODO
                 
-            //取得上传的图片的名字，图片临时存放在temp目录下
-            $img=$this->getRequest()->getParam('img');
-            $this->view->img=$img;
+            $clImg=new Admin_Model_Class_Img();
+            $imgInfo=$clImg->getImgInfoById($id);
+              
+            $this->view->img=$imgInfo['path'];
             //显示表单
-            $form=new Admin_Form_ImgSet($img);
+            $form=new Admin_Form_ImgSet($imgInfo['path']);
+            $form->prepareFormForUpdate($imgInfo);
             $this->view->form=$form;
             //取得所有主分类
             $clImgCat=new Admin_Model_Class_ImgCat();
@@ -71,20 +72,15 @@ class Admin_IndexController extends Zend_Controller_Action
             $this->view->catDetails=$catDetails;
             
             $request=$this->getRequest();
-            $smt=$request->getParam('smtSetBtn');
-            if($request->isPost()&&isset($smt)){
+            if($request->isPost()){
                 if($form->isValid($request->getPost())){
-                    $svImgupload=new Admin_Service_Imgupload();
-                    $svImgupload->upload($form->getValues());
+                    $clImg->updateImg($form->getValues());
                     $fbmsg['type']='alert-success';
-                    $fbmsg['msg']='图片添加成功';
+                    $fbmsg['msg']='图片更新成功';
                     $this->_helper->flashMessenger->addMessage($fbmsg,'fbmsg');
                     $this->redirect(SITE_BASE_URL.'/admin/');
                 }
             }
-                
-                
-                
             }else{
                 throw new Exception('参数不合法');
             }

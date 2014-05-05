@@ -23,15 +23,47 @@ class Admin_Form_ImgSet extends Zend_Form
         $imgName=new Zend_Form_Element_Hidden('img_name');
         $imgName->setValue($this->imgName);
         $imgName->setDecorators(array('ViewHelper'));
+        $catinfo=new Zend_Form_Element_Note('catinfo');
+        $catinfo->setValue('<div class="catInfo"></div>');
+        $catinfo->setDecorators(array('ViewHelper'));
         $smtBtn=new Zend_Form_Element_Submit('smtSetBtn');
         $smtBtn->setLabel('提交');
         $smtBtn->setAttribs(array('class'=>'btn btn-primary'));
-        $smtBtn->setDecorators(array(
-                                     array('HtmlTag',array('tag'=>'div','class'=>'catInfo')),
-                                     'ViewHelper'
-                                ));
-        $this->addElements(array($imgText,$imgDate,$imgCats,$imgName,$smtBtn));
+        $smtBtn->setDecorators(array('ViewHelper'));
+        $this->addElements(array($imgText,$imgDate,$imgCats,$imgName,$catinfo,$smtBtn));
                 
+    }
+    
+    public function prepareFormForUpdate($data){
+        $this->setAction('');
+        if(!empty($data['text'])){
+            $etext=$this->getElement('text');
+            $etext->setValue($data['text']);
+        }
+        
+        if(!empty($data['show_date'])){
+            $edate=$this->getElement('show_date');
+            $edate->setValue($data['show_date']);
+        }
+        
+        if(!empty($data['cats'])){
+            $ecats=$this->getElement('cats');
+            $ecats->setValue($data['cats']);
+        }
+        
+        if(!empty($data['catinfo'])){
+            $ecatinfo=$this->getElement('catinfo');
+            $html='<div class="catInfo">';
+            foreach ($data['catinfo'] as $key=>$value){
+                $html.='<span id="'.$key.'">'.$value.'</span>';
+            }
+            $html.='</div>';
+            $ecatinfo->setValue($html);
+        }
+        $imgId=new Zend_Form_Element_Hidden('img_id');
+        $imgId->setValue($data['id']);
+        $imgId->setDecorators(array('ViewHelper'));
+        $this->addElement($imgId);
     }
 
 

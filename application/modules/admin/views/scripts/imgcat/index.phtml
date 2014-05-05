@@ -1,1 +1,21 @@
-<br /><br /><center>View script for controller <b>Imgcat</b> and script/action name <b>index</b></center>
+<h3 class="page-header">类别列表</h3>
+<?php if(count($this->cats)>0){
+        foreach ($this->cats as $cat){
+?>
+<div class="panel panel-default">
+  <div class="panel-heading"><?php echo $cat['name']?></div>
+  <div class="panel-body">
+    <p>
+		<?php if(count($this->catDetails[$cat['id']])>0){?>
+			<?php foreach($this->catDetails[$cat['id']] as $catDetail){?>
+				<span><?php echo $catDetail?></span>
+			<?php }?>
+		<?php }else{
+		    echo '暂无下级分类';
+		}?>
+	</p>
+  </div>
+</div>
+<?php   }
+     }
+?>

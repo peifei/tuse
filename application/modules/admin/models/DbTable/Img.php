@@ -26,6 +26,30 @@ class Admin_Model_DbTable_Img extends Zend_Db_Table_Abstract
         }
     }
     
+    public function updateImg($data){
+        $db=$this->_db;
+        $db->beginTransaction();
+        try{
+            $this->update($data['img'],array('id=?'=>$data['img']['id']));
+            $imgId=$data['img']['id'];
+            $clImgCatRel=new Admin_Model_Class_ImgCatRel();
+            $clImgCatRel->removeCatRels($imgId);
+            if(!empty($data['cats'])){
+                $tempArr=explode(',', $data['cats']);
+                $fdata=array();
+                foreach ($tempArr as $arr){
+                    $fdata[]=array('imgid'=>$imgId,'cat_detailid'=>$arr);
+                }
+                $clImgCatRel->addImgCatRels($fdata);
+            }
+            $db->commit();
+        }catch(Exception $e){
+            $db->rollBack();
+            throw new Exception('数据库存储数据异常');
+        }
+    }
+    
+    
     public function deleteImg($imgId){
         $db=$this->_db;
         $db->beginTransaction();
@@ -38,7 +62,6 @@ class Admin_Model_DbTable_Img extends Zend_Db_Table_Abstract
             throw $e;
         }
     }
-
 
 }
 

@@ -1,15 +1,89 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8">
     <title>涂色</title>
     <link href="<?php echo $this->baseUrl()?>/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <h1>Hello, world!</h1>
-    <?php echo $this->layout()->content; ?>
-
+    <link href="<?php echo $this->baseUrl()?>/css/main.css" rel="stylesheet">
     <script type="text/javascript" src="<?php echo $this->baseUrl()?>/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="<?php echo $this->baseUrl()?>/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<p id="web-title">ITUSE.CN</p>
+			</div>
+		</div>
+		<div class="row">
+		<div class="col-sm-12">
+    <nav id="myNavbar" class="navbar navbar-default navbar-inverse" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">爱涂色</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="http://www.tutorialrepublic.com" target="_blank">首页</a></li>
+                <li><a href="http://www.tutorialrepublic.com/about-us.php" target="_blank">每日一涂</a></li>
+                <li><a href="http://www.tutorialrepublic.com/contact-us.php" target="_blank">涂色装备</a></li>
+                <li><a href="http://www.tutorialrepublic.com/contact-us.php" target="_blank">涂色书库</a></li>
+                <li><a href="http://www.tutorialrepublic.com/contact-us.php" target="_blank">关于我们</a></li>
+            </ul>
+        </div>
+    </div>
+	</nav>
+	</div>
+</div>
+    	<div class="row">
+    		<div class="col-sm-9 mainblock">
+            <?php echo $this->layout()->content; ?>
+            </div>
+            <div class="col-sm-3 sideblock">
+            <div class="panel panel-black">
+                <div class="panel-heading">
+                    <h3 class="panel-title">分类标签</h3>
+                </div>
+                <div class="panel-body">分类一,分类二,分类三,</div>
+            </div>
+            
+            <div class="panel panel-black">
+                <div class="panel-body">
+                	<img src="<?php echo SITE_BASE_URL.'/images/decorator/weixin.png'?>" class="img-responsive"></img>
+                </div>
+            </div>
+            
+            <div class="panel panel-black">
+                <div class="panel-body">
+                	<img src="<?php echo SITE_BASE_URL.'/images/decorator/weixin.png'?>" class="img-responsive"></img>
+                </div>
+            </div>
+            
+            <div class="panel panel-black">
+                <div class="panel-body">
+                	<img src="<?php echo SITE_BASE_URL.'/images/decorator/weixin.png'?>" class="img-responsive"></img>
+                </div>
+            </div>
+            
+            </div>
+            
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12">
+                <footer>
+                    <p>&copy; Copyright 2013 Tutorial Republic</p>
+                </footer>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

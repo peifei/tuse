@@ -38,28 +38,23 @@
             <li><a href="<?php echo SITE_BASE_URL.'/admin/img-upload/'?>">图品上传</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="<?php echo SITE_BASE_URL.'/admin/imgcat/'?>">图片类别</a></li>
+            <li><a href="<?php echo SITE_BASE_URL.'/admin/imgcat/'?>">图片类别</a></li>
             <li><a href="<?php echo SITE_BASE_URL.'/admin/imgcat/addcat/'?>">添加主类</a></li>
             <li><a href="<?php echo SITE_BASE_URL.'/admin/imgcat/addcatdetail/'?>">添加类别明细</a></li>
           </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-          </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        	<div class="container">
+        	
             <?php if(isset($this->fbmsg)){?>
             <div id="fbmsg" class="alert <?php echo $this->fbmsg['type']?> fade in">
             	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <span id="notifyMessage"><?php echo $this->fbmsg['msg']?></span>
             </div>
             <?php }?>
-        	<div class="row">
+        	
                 <?php echo $this->layout()->content; ?>
-            </div>
-            </div>
+            
+            
     	</div>
     </div>
     </div>

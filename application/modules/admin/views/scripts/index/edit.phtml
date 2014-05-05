@@ -1,0 +1,101 @@
+<style type="text/css">
+.tab-content{border:solid 1px; border-color: rgba(0, 0, 0, 0) #DDDDDD #DDDDDD; border-radius:0 0 4px 4px}
+.tab-pane{margin:10px; text-align: justify;}
+.catInfo{margin:10px}
+.tab-pane span,.catInfo span{margin:5px 5px 5px 0; font-size: 12px; color: #999999; padding: 3px; height: 20px; line-height: 20px}
+.tab-pane span:hover,.catInfo span:hover{cursor: pointer; background-color: #aaaaaa; color:#ffffff}
+#text,#show_date{width: 300px}
+</style>
+<link href="<?php echo SITE_BASE_URL?>/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
+<h3 class="page-header">完善图片信息</h3>
+<div class="col-sm-4">
+<img src="<?php echo SITE_BASE_URL.'/images/resources/'.$this->img?>" width="280px" class="img-thumbnail" />
+</div>
+<div class="col-sm-8">
+<?php echo $this->form ?>
+<?php if(count($this->cats)>0){?>
+<ul class="nav nav-tabs" id="myTab">
+<?php 
+    $i=0;
+    foreach($this->cats as $cat){
+	    if(0==$i){
+	        echo '<li class="active"><a data-toggle="tab" href="#fl'.$cat['id'].'">'.$cat['name'].'</a></li>';
+	    }else{
+	        echo '<li><a data-toggle="tab" href="#fl'.$cat['id'].'">'.$cat['name'].'</a></li>';
+	    }
+	    $i++;
+    }
+?>
+</ul>
+<div class="tab-content" id="myTabContent">
+	<?php
+	    $m=0; 
+	    foreach ($this->catDetails as $key=>$values){ 
+			if(0==$m){
+			    echo '<div id="fl'.$key.'" class="tab-pane fade in active">';
+			}else{
+			    echo '<div id="fl'.$key.'" class="tab-pane fade">';
+			}
+			
+			foreach($values as $k=>$value){
+			    echo '<span id="'.$k.'">'.$value.'</span>';
+			}
+            echo '</div>';
+	        $m++;
+	    }
+	?>
+</div>
+<?php }?>
+</div>
+<script src="<?php echo SITE_BASE_URL?>/js/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="<?php echo SITE_BASE_URL?>/js/jquery.ui.datepicker-zh-CN.js"></script>
+<link href="<?php echo SITE_BASE_URL?>css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
+<script type="text/javascript">
+$(function(){
+	$('#myTab a').click(function (e) {
+		  e.preventDefault()
+		  $(this).tab('show')
+	});
+	
+	$('.tab-pane span').bind('click',function(){
+		clickid=$(this).attr('id');
+		if(checkRepeat(clickid)){
+			$('.catInfo').append($(this).clone());
+			refreshCatId();
+		}
+	});
+
+	$('.catInfo').on('click','span',function(){
+		$(this).remove();
+		refreshCatId();
+	});
+
+	$("#show_date").datepicker();
+	
+})
+
+function refreshCatId(){
+	$('#cats').val('');
+	$('.catInfo span').each(function(){
+		nowids=$('#cats').val();
+		$('#cats').val(nowids+$(this).attr('id')+',');
+	});
+}
+
+
+function checkRepeat(id){
+	flag=0;
+	$('.catInfo span').each(function(){		
+		if(id==$(this).attr('id')){
+			flag=1;
+			return false;
+		}
+	});
+	if(0==flag){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+</script>

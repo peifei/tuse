@@ -6,7 +6,11 @@ class Admin_Service_Imgupload
     public function __construct(){
         
     }
-    
+    /**
+     * 上传图片方法
+     * @param unknown_type $data
+     * @throws Exception
+     */
     public function upload($data){
         try{
             $imgPath=$this->copyImg($data['img_name']);
@@ -24,6 +28,15 @@ class Admin_Service_Imgupload
             throw $e;
         }
     }
+    /**
+     * 更新图片信息
+     * @param unknown_type $data
+     */
+    public function update($data){
+        
+    }
+    
+    
     /**
      * 将图片从临时路径拷贝到存放路径
      * @param unknown_type $imgName
