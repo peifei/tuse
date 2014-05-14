@@ -1,4 +1,59 @@
 --
+-- 数据库: `tuse`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `book`
+--
+
+CREATE TABLE IF NOT EXISTS `book` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `title` varchar(30) DEFAULT NULL,
+  `desc` varchar(150) DEFAULT NULL,
+  `key_words` varchar(30) DEFAULT NULL,
+  `cover_path` varchar(50) DEFAULT NULL,
+  `back_cover_path` varchar(50) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `book_detail`
+--
+
+CREATE TABLE IF NOT EXISTS `book_detail` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `book_id` varchar(9) NOT NULL,
+  `img_id` varchar(9) NOT NULL,
+  `img_path` varchar(50) NOT NULL,
+  `order` int(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `img`
+--
+
+CREATE TABLE IF NOT EXISTS `img` (
+  `id` int(7) NOT NULL AUTO_INCREMENT,
+  `path` varchar(50) NOT NULL,
+  `text` varchar(20) DEFAULT NULL,
+  `show_date` date DEFAULT NULL,
+  `upload_time` datetime NOT NULL,
+  `click` varchar(9) NOT NULL DEFAULT '0',
+  `print` varchar(9) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `img_cat`
 --
 
@@ -23,28 +78,30 @@ CREATE TABLE IF NOT EXISTS `img_cat_detail` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
---
--- 表的结构 `img`
---
 
-CREATE TABLE `tuse`.`img` (
-`id` INT( 7 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`path` VARCHAR( 50 ) NOT NULL ,
-`text` VARCHAR( 20 ) NULL ,
-`show_date` DATE NULL ,
-`upload_time` DATETIME NOT NULL ,
-`click` VARCHAR( 9 ) NOT NULL DEFAULT '0',
-`print` VARCHAR( 9 ) NOT NULL DEFAULT '0'
-) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
-
--- --------------------------------------------------------
 --
 -- 表的结构 `img_cat_rel`
 --
 
-CREATE TABLE `tuse`.`img_cat_rel` (
-`id` INT( 9 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`imgid` VARCHAR( 7 ) NOT NULL ,
-`cat_detailid` VARCHAR( 5 ) NOT NULL ,
-INDEX ( `imgid` , `cat_detailid` )
-) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE TABLE IF NOT EXISTS `img_cat_rel` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `imgid` varchar(7) NOT NULL,
+  `cat_detailid` varchar(5) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `imgid` (`imgid`,`cat_detailid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tmp_book`
+--
+
+CREATE TABLE IF NOT EXISTS `tmp_book` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `img_id` varchar(7) NOT NULL,
+  `img_path` varchar(50) NOT NULL,
+  `order` int(4) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `img_id` (`img_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

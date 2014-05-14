@@ -2,17 +2,79 @@
 .img-info{margin-top: 5px; height: 25px; line-height: 25px;}
 .img-info span{font-size: 12px; color:#666666 }
 .img-info .btn{margin-left: 5px} 
+
+
+.tab-content{border:solid 1px; border-color: rgba(0, 0, 0, 0) #DDDDDD #DDDDDD; border-radius:0 0 4px 4px}
+.tab-pane{margin:10px; text-align: justify;}
+.catInfo{margin:10px}
+.tab-pane span,.catInfo span{margin:5px 5px 5px 0; font-size: 12px; color: #999999; padding: 3px; height: 20px; line-height: 20px}
+.tab-pane span:hover,.catInfo span:hover{cursor: pointer; background-color: #aaaaaa; color:#ffffff}
+#book-container{
+	position: fixed; left: 10px; bottom: 10px; z-index: 1000
+}
+.carousel-inner{min-height: 100px}
 </style>
-<h3 class="page-header">图片管理</h3>
+<h3 class="page-header">类别筛选</h3>
+<div id="cat">
+<div style="overflow: hidden;">
+<div class="col-sm-10">
+<div class="catInfo">
+</div>
+</div>
+<div class="col-sm-2" id="btn-container" style="display: none;">
+	<input type="button" class="btn btn-primary" value="筛选" onclick="smtForm()"/>
+</div>
+</div>
+<?php if(count($this->cats)>0){?>
+<ul class="nav nav-tabs" id="myTab">
+<?php 
+    $i=0;
+    foreach($this->cats as $cat){
+	    if(0==$i){
+	        echo '<li class="active"><a data-toggle="tab" href="#fl'.$cat['id'].'">'.$cat['name'].'</a></li>';
+	    }else{
+	        echo '<li><a data-toggle="tab" href="#fl'.$cat['id'].'">'.$cat['name'].'</a></li>';
+	    }
+	    $i++;
+    }
+?>
+</ul>
+<div class="tab-content" id="myTabContent">
+	<?php
+	    $m=0; 
+	    foreach ($this->cats as $cat){ 
+			if(0==$m){
+			    echo '<div id="fl'.$cat['id'].'" class="tab-pane fade in active">';
+			}else{
+			    echo '<div id="fl'.$cat['id'].'" class="tab-pane fade">';
+			}
+			if(isset($this->catDetails[$cat['id']])&&count($this->catDetails[$cat['id']])>0){
+    			foreach($this->catDetails[$cat['id']] as $k=>$value){
+    			    echo '<span id="'.$k.'">'.$value.'</span>';
+    			}
+                echo '</div>';
+			}else{
+			    echo '暂无明细分类</div>';
+			}
+	        $m++;
+	    }
+	?>
+</div>
+<?php }?>
+</div>
+
+<h3 class="page-head">图片管理 <a href="javascript:void(0)" class="btn btn-primary pull-right" onclick="showTmpBook()">新建一本书</a></h3>
+<div id="img-list">
 <?php foreach ($this->paginator as $img){?>
 <div class="col-lg-3">
-<img src="<?php echo SITE_BASE_URL.'/images/resources/'.$img['path']?>" alt="<?php echo $img['text']?>" title="<?php echo $img['text']?>" class="img-thumbnail img-responsive" />
+<img id="<?php echo $img['id']?>" src="<?php echo SITE_BASE_URL.'/images/resources/'.$img['path']?>" alt="<?php echo $img['text']?>" title="<?php echo $img['text']?>" class="img-thumbnail img-responsive" />
 <div class="img-info">
 <a href="<?php echo SITE_BASE_URL.'/admin/index/edit?id='.$img['id']?>" class="btn btn-primary btn-xs pull-right">修改</a>
 <a href="<?php echo SITE_BASE_URL.'/admin/index/delete?id='.$img['id']?>" class="btn btn-primary btn-xs pull-right">删除</a>
 </div>
 </div>
 <?php }?>
+</div>
 <div class="clearfix"></div>
 
 
@@ -21,3 +83,138 @@
                                     'Sliding',
                                     'my_pagination_control.phtml'); ?>
 </div>
+
+<div id="book-container" 
+<?php if(!isset($this->tmpBookImgs)){?>
+style="display: none"
+<?php }?>
+>
+<div class="panel panel-default">
+  <div class="panel-heading">书筐<small class="pull-right">点击图片，添加至此</small></div>
+  <div class="panel-body">
+        <div id="myCarousel" class="carousel slide" data-interval="5000" data-ride="carousel">
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            
+            <?php if(isset($this->tmpBookImgs)){
+                  $m=0;
+                  foreach ($this->tmpBookImgs as $img){
+                      if($m==0){
+             ?>
+            	<img id="<?php echo $img['id']?>" src="<?php echo SITE_BASE_URL.'/images/resources/'.$img['path']?>" alt="<?php echo $img['text']?>" title="<?php echo $img['text']?>" class="img-thumbnail img-responsive item active" />
+            <?php }else{?>
+            	<img id="<?php echo $img['id']?>" src="<?php echo SITE_BASE_URL.'/images/resources/'.$img['path']?>" alt="<?php echo $img['text']?>" title="<?php echo $img['text']?>" class="img-thumbnail img-responsive item" />
+            <?php     }
+                    $m++;
+                      }
+                }
+            ?>
+            
+        </div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    	</div>
+  </div>
+</div>
+</div>
+
+
+
+
+<form action="" id="cat-form" method="post">
+<input type="hidden" id="cats" name="cats" value=""/>
+</form>
+<script type="text/javascript">
+$(function(){
+	$('#myTab a').click(function (e) {
+		  e.preventDefault()
+		  $(this).tab('show')
+	});
+	
+	$('.tab-pane span').bind('click',function(){
+		clickid=$(this).attr('id');
+		if(checkRepeat(clickid)){
+			$('.catInfo').append($(this).clone());
+			refreshCatId();
+		}
+	});
+
+	$('.catInfo').on('click','span',function(){
+		$(this).remove();
+		refreshCatId();
+	});
+
+	$('#img-list').on('click','img',function(){
+		id=$(this).attr('id');
+		data="id="+id;
+		$.ajax({
+			type:"GET",
+			url:"<?php echo SITE_BASE_URL.'/admin/index/add-to-book/'?>",
+			data:data,
+			success:onsuccess,
+			error:onerror
+		});
+	});
+})
+
+function onsuccess(data){
+	obj=JSON.parse(data);
+	$('#myCarousel').carousel('pause');
+	$('.carousel-inner .active').each(function(){
+		$(this).removeClass('active');
+	});
+	html="<img id=\""+obj.id+"\" src=\"<?php echo SITE_BASE_URL.'/images/resources/'?>"+obj.path+"\" alt=\""+obj.text+"\" title=\""+obj.text+"\" class=\"img-thumbnail img-responsive item active\" />";
+	$('.carousel-inner').prepend(html);
+	$('#myCarousel').carousel('cycle');
+}
+
+function onerror(){
+	alert('图片添加异常，可能已经添加过该图片');
+}
+
+function refreshCatId(){
+	$('#cats').val('');
+	$('.catInfo span').each(function(){
+		nowids=$('#cats').val();
+		$('#cats').val(nowids+$(this).attr('id')+',');
+	});
+
+	//show btn
+	if($('.catInfo span').size()>0){
+		$('#btn-container').show();
+	}else{
+		$('#btn-container').hide();
+	}
+	
+}
+
+
+function checkRepeat(id){
+	flag=0;
+	$('.catInfo span').each(function(){		
+		if(id==$(this).attr('id')){
+			flag=1;
+			return false;
+		}
+	});
+	if(0==flag){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function smtForm(){
+	$('#cat-form').submit();
+}
+function showTmpBook(){
+	$('#book-container').show();
+}
+
+
+</script>

@@ -6,7 +6,7 @@
   <div class="panel-heading"><?php echo $cat['name']?></div>
   <div class="panel-body">
     <p>
-		<?php if(count($this->catDetails[$cat['id']])>0){?>
+		<?php if(isset($this->catDetails[$cat['id']]) && count($this->catDetails[$cat['id']])>0){?>
 			<?php foreach($this->catDetails[$cat['id']] as $catDetail){?>
 				<span><?php echo $catDetail?></span>
 			<?php }?>

@@ -44,8 +44,25 @@ class Admin_Model_Class_Img
      * 获取文件列表selecter
      * 主要用于列表分页
      */
-    public function getImgListSelecter(){
-        $selecter=$this->dbImg->getAdapter()->select()->from('img');
+    public function getImgListSelecter($cats=null){
+        if(null!=$cats){
+            $catsArr=explode(',', substr($cats,0,-1));
+            $cnt=count($catsArr);
+            $sqlwhere='';
+            $n=0;
+            foreach ($catsArr as $cat){
+                if(0==$n){
+                    $sqlwhere.="cat_detailid='".$cat."'";
+                }else{
+                    $sqlwhere.=" or cat_detailid='".$cat."'";
+                }
+                $n++;
+            }
+            $selecter=$this->dbImg->getAdapter()->select()->from('img')
+                ->where("id in (select imgid from img_cat_rel where ".$sqlwhere." group by imgid having count(*)=$cnt)");
+        }else{
+            $selecter=$this->dbImg->getAdapter()->select()->from('img');
+        }
         return $selecter;
     }
     /**
@@ -89,6 +106,10 @@ class Admin_Model_Class_Img
             }
             return $res;
         }
+    }
+    
+    public function getTmpBookImgs($order){
+        return $this->dbImg->getTmpBookImgs($order);
     }
     
     

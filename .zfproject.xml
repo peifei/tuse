@@ -15,7 +15,11 @@
       </controllersDirectory>
       <formsDirectory enabled="false"/>
       <layoutsDirectory enabled="false"/>
-      <modelsDirectory/>
+      <modelsDirectory>
+        <dbTableDirectory>
+          <dbTableFile dbTableName="TmpBook"/>
+        </dbTableDirectory>
+      </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="Admin">
           <apisDirectory enabled="false"/>
@@ -32,12 +36,16 @@
             <controllerFile controllerName="ImgUpload">
               <actionMethod actionName="index"/>
             </controllerFile>
+            <controllerFile controllerName="Book">
+              <actionMethod actionName="index"/>
+            </controllerFile>
           </controllersDirectory>
           <formsDirectory>
             <formFile formName="Cat"/>
             <formFile formName="CatDetail"/>
             <formFile formName="ImgUpload"/>
             <formFile formName="ImgSet"/>
+            <formFile formName="BookInit"/>
           </formsDirectory>
           <layoutsDirectory enabled="false"/>
           <modelsDirectory>
@@ -63,6 +71,9 @@
                 <viewScriptFile forActionName="addcatdetail"/>
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="ImgUpload">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Book">
                 <viewScriptFile forActionName="index"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
@@ -116,6 +127,7 @@
           <testApplicationControllerFile filesystemName="IndexControllerTest.php"/>
           <testApplicationControllerFile filesystemName="ImgcatControllerTest.php"/>
           <testApplicationControllerFile filesystemName="ImgUploadControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="BookControllerTest.php"/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>

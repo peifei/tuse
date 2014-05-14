@@ -15,10 +15,27 @@ class Admin_IndexController extends Zend_Controller_Action
             $this->view->fbmsg=$msg[0];
         }
         
+        //取得所有主分类
+        $clImgCat=new Admin_Model_Class_ImgCat();
+        $cats=$clImgCat->getCats();
+        $this->view->cats=$cats;
+        //取得所有明细分类
+        $clImgCatDetail=new Admin_Model_Class_ImgCatDetail();
+        $catDetails=$clImgCatDetail->getCatDetails();
+        $this->view->catDetails=$catDetails;
+        
+        //取得临时图书图片集
+        $clImg=new Admin_Model_Class_Img();
+        $tmpBookImgs=$clImg->getTmpBookImgs('desc');
+        if(count($tmpBookImgs)>0){
+            $this->view->tmpBookImgs=$tmpBookImgs;
+        }
+        
+        
         $request=$this->getRequest();
         $pageNum=$request->getParam('pageNum');
-        $clImg=new Admin_Model_Class_Img();
-        $selecter=$clImg->getImgListSelecter();
+        $cats=$request->getParam('cats');
+        $selecter=$clImg->getImgListSelecter($cats);
         $adapter = new Zend_Paginator_Adapter_DbSelect($selecter);
 		$paginator = new Zend_Paginator($adapter);
 		$paginator->setItemCountPerPage(24);
@@ -91,6 +108,17 @@ class Admin_IndexController extends Zend_Controller_Action
             $this->_helper->flashMessenger->addMessage($fbmsg,'fbmsg');
             $this->redirect(SITE_BASE_URL.'/admin/');
         }
+    }
+    
+    public function addToBookAction(){
+
+            $this->_helper->layout()->disableLayout();
+            $this->_helper->viewRenderer->setNoRender(true);
+            $imgId=$this->getRequest()->getParam('id');
+            $clTmpBook=new Admin_Model_Class_TmpBook();
+            //插入图片到临时书筐中，并返回原石图片信息
+            $imgInfo=$clTmpBook->addNewImg($imgId);
+            echo json_encode($imgInfo);
     }
 
 

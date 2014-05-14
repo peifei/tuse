@@ -4,7 +4,11 @@ class Admin_Model_DbTable_Img extends Zend_Db_Table_Abstract
 {
 
     protected $_name = 'img';
-    
+    /**
+     * 添加图片
+     * Enter description here ...
+     * @param unknown_type $data
+     */
     public function addNewImg($data){
         $db=$this->_db;
         $db->beginTransaction();
@@ -25,7 +29,11 @@ class Admin_Model_DbTable_Img extends Zend_Db_Table_Abstract
             throw new Exception('数据库存储数据异常');
         }
     }
-    
+    /**
+     * 更新图片
+     * Enter description here ...
+     * @param unknown_type $data
+     */
     public function updateImg($data){
         $db=$this->_db;
         $db->beginTransaction();
@@ -49,7 +57,11 @@ class Admin_Model_DbTable_Img extends Zend_Db_Table_Abstract
         }
     }
     
-    
+    /**
+     * 删除图片
+     * Enter description here ...
+     * @param unknown_type $imgId
+     */
     public function deleteImg($imgId){
         $db=$this->_db;
         $db->beginTransaction();
@@ -61,6 +73,14 @@ class Admin_Model_DbTable_Img extends Zend_Db_Table_Abstract
             $db->rollBack();
             throw $e;
         }
+    }
+    
+    public function getTmpBookImgs($order){
+        $select=$this->_db->select()->from('img as i')
+                                    ->joinInner('tmp_book as tb', 'i.id=tb.img_id',array('tb.order'))
+                                    ->order('tb.order '.$order);
+        $res=$this->_db->fetchAll($select);
+        return $res;
     }
 
 }

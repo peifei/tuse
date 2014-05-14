@@ -1,0 +1,14 @@
+<h3>新建图书</h3>
+<div class="col-sm-7">
+<?php echo $this->form ?>
+</div>
+<div class="clearfix"></div>
+<h3>图片列表</h3>
+<div id="img-list">
+<?php foreach ($this->tmpImgs as $img){?>
+<div class="col-lg-3">
+<img id="<?php echo $img['img_id']?>" src="<?php echo SITE_BASE_URL.'/images/resources/'.$img['img_path']?>" class="img-thumbnail img-responsive" />
+</div>
+<?php }?>
+</div>
+
