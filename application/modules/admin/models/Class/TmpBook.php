@@ -12,7 +12,10 @@ class Admin_Model_Class_TmpBook
     public function getImgNum(){
         return $this->dbTmpBook->getImgNum();
     }
-    
+    /**
+     * 向临时书筐中添加图片
+     * @param unknown_type $imgId
+     */
     public function addNewImg($imgId){
         $clImg=new Admin_Model_Class_Img();
         $imgInfo=$clImg->getImgInfoById($imgId);
@@ -23,10 +26,18 @@ class Admin_Model_Class_TmpBook
         $this->dbTmpBook->insert($data);
         return $imgInfo;
     }
-    
+    /**
+     * 取得临时图片列表
+     * Enter description here ...
+     */
     public function getTmpImgs(){
         $res=$this->dbTmpBook->fetchAll(null,'order asc');
         return $res;
+    }
+    
+    public function clearTmpImgs(){
+        $res=$this->dbTmpBook->getDefaultAdapter()->query('truncate tmp_book')->execute();
+        var_dump($res);
     }
 }
 ?>
