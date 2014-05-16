@@ -1,1 +1,8 @@
 <h3>图书管理</h3>
+<?php if(count($this->bookList)>0){?>
+<ul>
+<?php foreach ($this->bookList as $book){?>
+<li><a href="<?php echo SITE_BASE_URL.'/pdf/'.$book['path'] ?>"><?php echo $book['path'] ?></a></li>
+<?php }?>
+</ul>
+<?php }?>

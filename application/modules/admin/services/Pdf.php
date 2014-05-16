@@ -8,17 +8,24 @@ class Admin_Service_Pdf
         $this->pageStyle=$pageStyle;
     }
     
-    public function addImages(){
-        
+    
+    
+    public function addImages(Array $imgPaths){
+        $pages=array();
+        foreach ($imgPaths as $imgPath){
+            $pages[]=$this->addImage($imgPath);
+        }
+        $this->pdf->pages=$pages;
+        return $this->pdf;
     }
     
     public function addImage($imgPath){
-        $image = Zend_Pdf_Image::imageWithPath(APPLICATION_PATH.'/images/Hydrangeas.jpg');
+        $image = Zend_Pdf_Image::imageWithPath(PUBLIC_PATH.'/images/resources/'.$imgPath);
         $page=new Zend_Pdf_Page(Zend_Pdf_Page::SIZE_A4);
         $width=$image->getPixelWidth();
         $height=$image->getPixelHeight();
         //595-40=555;842-40=802
-    if(Zend_Pdf_Page::SIZE_A4==$this->pageStyle){
+        if(Zend_Pdf_Page::SIZE_A4==$this->pageStyle){
             if($width>$height){
                 $scalWidth=555;
                 $scalHeiht=intval(555*$height/$width);
@@ -34,7 +41,7 @@ class Admin_Service_Pdf
                     $x1=(595-$scalWidth)/2;
                     $y1=20;
                     $x2=$x1+$scalWidth;
-                    $y2=802;
+                    $y2=822;
                 }else{
                     $scalWidth=555;
                     $scalHeiht=intval(555*$height/$width);
@@ -68,14 +75,14 @@ class Admin_Service_Pdf
                     $scalHeiht=intval(802*$height/$width);
                     $x1=20;
                     $y1=(595-$scalHeiht)/2;
-                    $x2=802;
+                    $x2=822;
                     $y2=$y1+$scalHeiht;
                 }
             }
         }
         
-        
         $page->drawImage($image, $x1, $y1, $x2, $y2);
+        return $page;
     }
     
     

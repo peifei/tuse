@@ -15,9 +15,10 @@ CREATE TABLE IF NOT EXISTS `book` (
   `key_words` varchar(30) DEFAULT NULL,
   `cover_path` varchar(50) DEFAULT NULL,
   `back_cover_path` varchar(50) DEFAULT NULL,
+  `path` varchar(50) NOT NULL,
   `date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8
 
 -- --------------------------------------------------------
 

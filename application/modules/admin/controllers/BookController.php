@@ -10,7 +10,8 @@ class Admin_BookController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+        $clBook=new Admin_Model_Class_Book();
+        $this->view->bookList=$clBook->getBookList();
     }
     
     public function initAction(){
@@ -24,6 +25,7 @@ class Admin_BookController extends Zend_Controller_Action
         if($request->isPost()){
             if($form->isValid($request->getPost())){
                 $clBook->initBook($form->getValues());
+                echo 'success';
             }
         }
     }
