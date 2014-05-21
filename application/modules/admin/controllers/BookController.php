@@ -25,7 +25,7 @@ class Admin_BookController extends Zend_Controller_Action
         if($request->isPost()){
             if($form->isValid($request->getPost())){
                 $clBook->initBook($form->getValues());
-                echo 'success';
+                $this->redirect(SITE_BASE_URL.'/admin/book/');
             }
         }
     }

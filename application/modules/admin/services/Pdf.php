@@ -26,7 +26,7 @@ class Admin_Service_Pdf
         $height=$image->getPixelHeight();
         //595-40=555;842-40=802
         if(Zend_Pdf_Page::SIZE_A4==$this->pageStyle){
-            if($width>$height){
+            if($width>=$height){
                 $scalWidth=555;
                 $scalHeiht=intval(555*$height/$width);
                 $x1=20;
@@ -54,7 +54,7 @@ class Admin_Service_Pdf
         }
         
         if(Zend_Pdf_Page::SIZE_A4_LANDSCAPE==$this->pageStyle){
-            if($width<$height){
+            if($width<=$height){
                 $scalWidth=intval(555*$width/$height);
                 $scalHeiht=555;
                 $x1=(842-$scalWidth)/2;
