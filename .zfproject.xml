@@ -12,6 +12,9 @@
           <actionMethod actionName="index"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
+        <controllerFile controllerName="Book">
+          <actionMethod actionName="index"/>
+        </controllerFile>
       </controllersDirectory>
       <formsDirectory enabled="false"/>
       <layoutsDirectory enabled="false"/>
@@ -92,6 +95,9 @@
           <viewControllerScriptsDirectory forControllerName="Error">
             <viewScriptFile forActionName="error"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Book">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -129,6 +135,7 @@
           <testApplicationControllerFile filesystemName="IndexControllerTest.php"/>
           <testApplicationControllerFile filesystemName="ImgcatControllerTest.php"/>
           <testApplicationControllerFile filesystemName="ImgUploadControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="BookControllerTest.php"/>
           <testApplicationControllerFile filesystemName="BookControllerTest.php"/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>

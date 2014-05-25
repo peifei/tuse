@@ -76,6 +76,7 @@ class Admin_Model_Class_Img
         }else{
             $this->dbImg->deleteImg($imgId);
             unlink(PUBLIC_PATH.'/images/resources/'.$res['path']);
+            unlink(PUBLIC_PATH.'/images/thumbnails/'.$res['path']);
         }
         
     }
@@ -84,7 +85,14 @@ class Admin_Model_Class_Img
      * @param unknown_type $date
      */
     public function getDateImg($date=null){
-        
+        if(null==$date){
+            $date=date('Y-m-d');
+        }
+        $res=$this->dbImg->fetchRow(array('show_date=?'=>$date));
+        if(count($res)<1){
+            $res=$this->dbImg->fetchRow(null,'rand()');
+        }
+        return $res;
     }
     /**
      * 根据图片id取得图片信息

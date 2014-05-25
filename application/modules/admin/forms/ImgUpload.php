@@ -8,6 +8,7 @@ class Admin_Form_ImgUpload extends Zend_Form
         $this->setAttrib('enctype', 'multipart/form-data');
         $img=new Zend_Form_Element_File('img');
         $img->setLabel('请选择要上传的图片')
+            ->setRequired(true)
             ->setDestination(PUBLIC_PATH.DIRECTORY_SEPARATOR.'temp'.DIRECTORY_SEPARATOR);
         $img->addValidator('Count', false, 2);
         $img->addValidator('Size', false, 1024000);

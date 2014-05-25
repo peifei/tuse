@@ -54,6 +54,7 @@ class Admin_Service_Imgupload
 		//检测同名文件是否已经存在
 		if(!file_exists($destFile)){
     		if(rename($originFile, $destFile)){
+    		    $this->thumbnails($destFile);
     		    return $imgDir.'/'.$imgName;
     		}else{
     		    throw new Exception('文件移动失败');
@@ -64,8 +65,14 @@ class Admin_Service_Imgupload
 		}
     }
     
-    public function thumbnails(){
-        
+    public function thumbnails($fileName){
+        $thumbFileName=str_replace(DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR.'thumbnails'.DIRECTORY_SEPARATOR, $fileName);
+        $fileInfo=pathinfo($thumbFileName);
+        if(!is_dir($fileInfo['dirname'])){
+			mkdir($fileInfo['dirname'],0777,true);
+		}
+		$svcImg=new Admin_Service_Img($fileName);
+		$svcImg->createThumbNails($thumbFileName);
     }
     
     public function saveData(Array $data){

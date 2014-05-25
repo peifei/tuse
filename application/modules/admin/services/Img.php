@@ -13,7 +13,7 @@ class Admin_Service_Img
         $this->canvas=$canvas;
     }
     
-public function createThumbNails(){
+public function createThumbNails($thumbImg){
         list($width,$height,$type)=getimagesize($this->img);
         $imgObj=$this->createImgObj($type);
         $image_canvas = imagecreatetruecolor($this->canvas,$this->canvas);
@@ -28,7 +28,7 @@ public function createThumbNails(){
             $newWidth=intval($newHeight*$width/$height);
             imagecopyresampled($image_canvas, $imgObj, ($this->canvas-$newWidth)/2,0, 0, 0, $newWidth, $newHeight, $width, $height);
         }
-        $this->createImgFile($image_canvas, $type, $this->img);
+        $this->createImgFile($image_canvas, $type, $thumbImg);
         
     }
     /**
@@ -48,7 +48,7 @@ public function createThumbNails(){
     
     public function createImgFile($image,$type,$fileName){
         if(IMAGETYPE_PNG==$type){
-            return imagepng($image,$fileName,100);
+            return imagepng($image,$fileName,9);
         }elseif(IMAGETYPE_JPEG==$type){
             return imagejpeg($image,$fileName,100);
         }else{
