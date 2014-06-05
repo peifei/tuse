@@ -4,30 +4,41 @@ class Admin_Service_Img
     private $img;
     private $canvas; //设置正方形canvas的宽和高 
     
-    public function __construct($img){
-        $this->canvas=180;//默认canvas宽和高为180px
+    public function __construct($img,$w=180,$h=180){
+        $this->setCanvas($w, $h);//默认canvas宽和高为180px
         $this->img=$img;
     }
     
-    public function setCanvas($canvas){
-        $this->canvas=$canvas;
+    public function setCanvas($w,$h){
+        $this->canvas['w']=$w;
+        $this->canvas['h']=$h;
     }
-    
-public function createThumbNails($thumbImg){
+    /**
+     * 创建缩略图
+     * Enter description here ...
+     * @param unknown_type $thumbImg //缩略图存储路径
+     */
+    public function createThumbNails($thumbImg){
         list($width,$height,$type)=getimagesize($this->img);
         $imgObj=$this->createImgObj($type);
-        $image_canvas = imagecreatetruecolor($this->canvas,$this->canvas);
+        $image_canvas = imagecreatetruecolor($this->canvas['w'],$this->canvas['h']);
         $bg=imagecolorallocate($image_canvas, 255, 255, 255);
-        imagefilledrectangle($image_canvas,0,0,$this->canvas,$this->canvas,$bg);
-        if($width>=$height){
-            $newWidth=$this->canvas;
+        imagefilledrectangle($image_canvas,0,0,$this->canvas['w'],$this->canvas['h'],$bg);
+        //背景的宽高比
+        $cp=floatval($this->canvas['w']/$this->canvas['h']);
+        //图片的宽高比
+        $ip=floatval($width/$height);
+        if($ip>=$cp){
+            $newWidth=$this->canvas['w'];
             $newHeight=intval($newWidth*$height/$width);
-            imagecopyresampled($image_canvas, $imgObj, 0, ($this->canvas-$newHeight)/2, 0, 0, $newWidth, $newHeight, $width, $height);
+            imagecopyresampled($image_canvas, $imgObj, 0, ($this->canvas['h']-$newHeight)/2, 0, 0, $newWidth, $newHeight, $width, $height);
         }else{
-            $newHeight=$this->canvas;
+            $newHeight=$this->canvas['h'];
             $newWidth=intval($newHeight*$width/$height);
-            imagecopyresampled($image_canvas, $imgObj, ($this->canvas-$newWidth)/2,0, 0, 0, $newWidth, $newHeight, $width, $height);
+            imagecopyresampled($image_canvas, $imgObj, ($this->canvas['w']-$newWidth)/2,0, 0, 0, $newWidth, $newHeight, $width, $height);
+            
         }
+        
         $this->createImgFile($image_canvas, $type, $thumbImg);
         
     }
