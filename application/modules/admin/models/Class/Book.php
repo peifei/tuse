@@ -20,8 +20,16 @@ class Admin_Model_Class_Book
         //创建pdf服务类
         $svcPdf=new Admin_Service_Pdf();
         $db->beginTransaction();
-        $bookName='tuse_'.date('Ymdhis').'.pdf';
+        $bookKey=date('Ymdhis');
+        $bookName='tuse_'.$bookKey.'.pdf';
         try{
+            $savePath=PUBLIC_PATH.DIRECTORY_SEPARATOR.'pdf'.DIRECTORY_SEPARATOR.date('Ymd').DIRECTORY_SEPARATOR;
+            if(!is_dir($savePath)){
+                mkdir($savePath,0777,true);
+            }
+            //取得第一张图片作为书的封面
+            $coverImg=PUBLIC_PATH.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $tmpImgs[0]['img_path']);
+            $data['cover_path']=$this->makeCover($coverImg, $bookKey);
             
             $data['path']=date('Ymd').'/'.$bookName;
             $bookId=$this->dbBook->insert($data);
@@ -33,10 +41,6 @@ class Admin_Model_Class_Book
                 $clBookDetail->addNewBookImg($tmpImg);
             }
             $pdf=$svcPdf->addImages($imgPaths);
-            $savePath=PUBLIC_PATH.DIRECTORY_SEPARATOR.'pdf'.DIRECTORY_SEPARATOR.date('Ymd').DIRECTORY_SEPARATOR;
-            if(!is_dir($savePath)){
-                mkdir($savePath,0777,true);
-            }
             $pdf->save(PUBLIC_PATH.DIRECTORY_SEPARATOR.'pdf'.DIRECTORY_SEPARATOR.date('Ymd').DIRECTORY_SEPARATOR.$bookName);
             $clTmpBook->clearTmpImgs();
             $db->commit();
@@ -46,8 +50,13 @@ class Admin_Model_Class_Book
         }
     }
     
-    public function makeCover($img){
-        
+    public function makeCover($img,$bookKey){
+        $imgName=basename($img);
+        $svcImg=new Admin_Service_Img($img,128,180);
+        $cover=date(Ymd).DIRECTORY_SEPARATOR.'cover_'.$bookKey.'_'.$imgName;
+        $thumbImg=PUBLIC_PATH.DIRECTORY_SEPARATOR.'pdf'.DIRECTORY_SEPARATOR.$cover;
+        $svcImg->createThumbNails($thumbImg);
+        return str_replace(DIRECTORY_SEPARATOR, '/', $cover);
     }
     
     /**
