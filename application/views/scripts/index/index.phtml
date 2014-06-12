@@ -1,1 +1,32 @@
+        <div id="myCarousel" class="carousel slide" data-interval="5000" data-ride="carousel">
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+
+            <div class="item active">11111111</div>
+            <div class="item">2222222</div>
+            <?php if(isset($this->tmpBookImgs)){
+                  $m=0;
+                  foreach ($this->tmpBookImgs as $img){
+                      if($m==0){
+             ?>
+            	<img id="<?php echo $img['id']?>" width="200px" src="<?php echo SITE_BASE_URL.'/images/thumbnails/'.$img['path']?>" alt="<?php echo $img['text']?>" title="<?php echo $img['text']?>" class="img-thumbnail img-responsive item active" />
+            <?php }else{?>
+            	<img id="<?php echo $img['id']?>" width="200px" src="<?php echo SITE_BASE_URL.'/images/thumbnails/'.$img['path']?>" alt="<?php echo $img['text']?>" title="<?php echo $img['text']?>" class="img-thumbnail img-responsive item" />
+            <?php     }
+                    $m++;
+                      }
+                }
+            ?>
+            
+        </div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    	</div>
+
+
 <img src="<?php echo SITE_BASE_URL.'/images/resources/'.$this->todayImg['path']?>" class="img-responsive"/>

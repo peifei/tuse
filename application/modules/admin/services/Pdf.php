@@ -82,7 +82,15 @@ class Admin_Service_Pdf
         }
         
         $page->drawImage($image, $x1, $y1, $x2, $y2);
+        $this->drawFooterAndHeader($page);
         return $page;
+    }
+    
+    public function drawFooterAndHeader($page){
+        $header=Zend_Pdf_Image::imageWithPath(APPLICATION_PATH.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'pdf_header.png');
+        $footer=Zend_Pdf_Image::imageWithPath(APPLICATION_PATH.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'pdf_footer.png');
+        $page->drawImage($header,20,822,575,842);
+        $page->drawImage($footer,20,0,575,20);
     }
     
     
