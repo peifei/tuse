@@ -18,7 +18,7 @@ class Admin_Service_Img
      * Enter description here ...
      * @param unknown_type $thumbImg //缩略图存储路径
      */
-    public function createThumbNails($thumbImg){
+    public function createThumbNails($thumbImg,$title=null){
         list($width,$height,$type)=getimagesize($this->img);
         $imgObj=$this->createImgObj($type);
         $image_canvas = imagecreatetruecolor($this->canvas['w'],$this->canvas['h']);
@@ -38,7 +38,10 @@ class Admin_Service_Img
             imagecopyresampled($image_canvas, $imgObj, ($this->canvas['w']-$newWidth)/2,0, 0, 0, $newWidth, $newHeight, $width, $height);
             
         }
-        
+        if(!empty($title)){
+            $textImg=$this->createTextImg($title);
+            imagecopyresampled($image_canvas,$textImg,0,40,0,0,$this->canvas['w'],30,$this->canvas['w'],30);
+        }
         $this->createImgFile($image_canvas, $type, $thumbImg);
         
     }
@@ -65,6 +68,33 @@ class Admin_Service_Img
         }else{
             throw new Exception('图片类型只能为jpg和png');
         }
+    }
+    
+    /**
+     * 生成文字图片
+     * Enter description here ...
+     * @param unknown_type $text
+     */
+    public function createTextImg($text){
+        $im = imagecreatetruecolor($this->canvas['w'], 30);
+        imagesavealpha($im, true);
+        $trans_colour = imagecolorallocatealpha($im, 0, 0, 0, 88);
+        imagefill($im, 0, 0, $trans_colour);
+        // Create some colors
+        //$white = imagecolorallocate($im, 255, 255, 255);
+        $grey = imagecolorallocate($im, 128, 128, 128);
+        //$black = imagecolorallocate($im, 0, 0, 0);
+        //imagefilledrectangle($im, 0, 0, 399, 29, $white);
+        
+        //设置字体
+        $font = APPLICATION_PATH.DIRECTORY_SEPARATOR.'font'.DIRECTORY_SEPARATOR.'SIMFANG.TTF';
+        
+        // Add some shadow to the text
+        //imagettftext($im, 20, 0, 13, 23, $grey, $font, $text);
+        
+        // Add the text
+        imagettftext($im, 20, 0, 50, 25, $grey, $font, $text);
+        return $im;
     }
     
     

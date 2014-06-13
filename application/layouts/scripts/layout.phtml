@@ -5,79 +5,49 @@
     <title>涂色</title>
     <link href="<?php echo $this->baseUrl()?>/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo $this->baseUrl()?>/css/main.css" rel="stylesheet">
-    <script type="text/javascript" src="<?php echo $this->baseUrl()?>/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl()?>/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo SITE_BASE_URL?>/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<?php echo SITE_BASE_URL?>/js/bootstrap.min.js"></script>
+<!--[if lt IE 9]>
+      <script src="<?php echo SITE_BASE_URL?>/js/html5shiv.js"></script>
+      <script src="<?php echo SITE_BASE_URL?>/js/respond.min.js"></script>
+<![endif]-->
 </head>
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-md-12">
 				<p id="web-title">ITUSE.CN</p>
-			</div>
-		</div>
-		<div class="row">
-		<div class="col-sm-12">
-    <nav id="myNavbar" class="navbar navbar-default navbar-inverse" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">爱涂色</a>
+			
+                <nav id="myNavbar" class="navbar navbar-default navbar-inverse" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">爱涂色</a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#" target="_blank">首页</a></li>
+                            <li><a href="#" target="_blank">每日一涂</a></li>
+                            <li><a href="#" target="_blank">涂色装备</a></li>
+                            <li><a href="<?php echo SITE_BASE_URL.'/book/'?>" target="_blank">涂色书库</a></li>
+                            <li><a href="http://www.tutorialrepublic.com/contact-us.php" target="_blank">关于我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+            	</nav>
+        	</div>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#" target="_blank">首页</a></li>
-                <li><a href="#" target="_blank">每日一涂</a></li>
-                <li><a href="#" target="_blank">涂色装备</a></li>
-                <li><a href="<?php echo SITE_BASE_URL.'/book/'?>" target="_blank">涂色书库</a></li>
-                <li><a href="http://www.tutorialrepublic.com/contact-us.php" target="_blank">关于我们</a></li>
-            </ul>
-        </div>
-    </div>
-	</nav>
-	</div>
-</div>
     	<div class="row">
-    		<div class="col-sm-12 mainblock">
+    		<div class="mainblock">
             <?php echo $this->layout()->content; ?>
-            </div>
-            <div class="col-sm-9">
-            some text
-            </div>
-            <div class="col-sm-3 sideblock">
-            <div class="panel panel-black">
-                <div class="panel-heading">
-                    <h3 class="panel-title">分类标签</h3>
-                </div>
-                <div class="panel-body">分类一,分类二,分类三,</div>
-            </div>
-            
-            <div class="panel panel-black">
-                <div class="panel-body">
-                	<img src="<?php echo SITE_BASE_URL.'/images/decorator/weixin.png'?>" class="img-responsive"></img>
-                </div>
-            </div>
-            
-            <div class="panel panel-black">
-                <div class="panel-body">
-                	<img src="<?php echo SITE_BASE_URL.'/images/decorator/weixin.png'?>" class="img-responsive"></img>
-                </div>
-            </div>
-            
-            <div class="panel panel-black">
-                <div class="panel-body">
-                	<img src="<?php echo SITE_BASE_URL.'/images/decorator/weixin.png'?>" class="img-responsive"></img>
-                </div>
-            </div>
-            
-            </div>
-            
+            </div>            
         </div>
         <hr>
         <div class="row">

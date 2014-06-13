@@ -14,6 +14,11 @@ class IndexController extends Zend_Controller_Action
         $clImg=new Admin_Model_Class_Img();
         $todayImg=$clImg->getDateImg();
         $this->view->todayImg=$todayImg;
+        
+        $clBook=new Admin_Model_Class_Book();
+        $this->view->bookList=$clBook->getBookList();
+        
+        
     }
 
 

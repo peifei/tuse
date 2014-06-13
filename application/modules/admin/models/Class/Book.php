@@ -29,7 +29,7 @@ class Admin_Model_Class_Book
             }
             //取得第一张图片作为书的封面
             $coverImg=PUBLIC_PATH.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $tmpImgs[0]['img_path']);
-            $data['cover_path']=$this->makeCover($coverImg, $bookKey);
+            $data['cover_path']=$this->makeCover($coverImg, $bookKey,$data['title']);
             
             $data['path']=date('Ymd').'/'.$bookName;
             $bookId=$this->dbBook->insert($data);
@@ -50,12 +50,12 @@ class Admin_Model_Class_Book
         }
     }
     
-    public function makeCover($img,$bookKey){
+    public function makeCover($img,$bookKey,$title){
         $imgName=basename($img);
-        $svcImg=new Admin_Service_Img($img,128,180);
+        $svcImg=new Admin_Service_Img($img,300,420);
         $cover=date(Ymd).DIRECTORY_SEPARATOR.'cover_'.$bookKey.'_'.$imgName;
         $thumbImg=PUBLIC_PATH.DIRECTORY_SEPARATOR.'pdf'.DIRECTORY_SEPARATOR.$cover;
-        $svcImg->createThumbNails($thumbImg);
+        $svcImg->createThumbNails($thumbImg,$title);
         return str_replace(DIRECTORY_SEPARATOR, '/', $cover);
     }
     
