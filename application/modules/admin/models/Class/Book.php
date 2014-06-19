@@ -67,8 +67,22 @@ class Admin_Model_Class_Book
         $res=$this->dbBook->fetchAll();
         return $res;
     }
-    
-    
-
+    /**
+     * 取得单本图书的信息
+     * Enter description here ...
+     * @param unknown_type $bid
+     */
+    public function getBookInfo($bid){
+        $maimInfo=$this->dbBook->fetchRow(array('id=?'=>$bid));
+        if(empty($maimInfo)){
+            throw new Exception("没有找到对应的涂色书");
+        }
+        $clBookDetail=new Admin_Model_Class_BookDetail();
+        $imgsInfo=$clBookDetail->getBookImgs($bid);
+        $bookInfo=array();
+        $bookInfo['mainInfo']=$maimInfo->toArray();
+        $bookInfo['imgsInfo']=$imgsInfo;
+        return $bookInfo;
+    }
 }
 ?>

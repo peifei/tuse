@@ -46,7 +46,12 @@
         </div>
     	<div class="row">
     		<div class="mainblock">
-            <?php echo $this->layout()->content; ?>
+    			<div class="col-md-9">
+                    <?php echo $this->layout()->content; ?>
+            	</div>
+            	<div class="col-md-3">
+            		<div class="panel panel-default">sidebar</div>
+            	</div>
             </div>            
         </div>
         <hr>

@@ -1,0 +1,32 @@
+<style type="text/css">
+.book-texts dl{padding: 10px 0}
+.book-texts dl dt{height: 60px; line-height: 60px; font-size: 22px;}
+</style>
+
+<h3 class="page-header">图书明细</h3>
+<div id="main-info" class="clearfix">
+    <div class="col-lg-5 col-md-5 col-sm-5 book-cover">
+    <img src="<?php echo SITE_BASE_URL.'/pdf/'.$this->bookInfo['mainInfo']['cover_path'] ?>" class="img-thumbnail img-responsive" />
+    </div>
+    <div class="col-lg-7 col-md-7 col-sm-7 book-texts">
+        <dl>
+        	<dt>书名:</dt>
+        	<dd><?php echo empty($this->bookInfo['mainInfo']['title'])?'暂无书名':$this->bookInfo['mainInfo']['title']?></dd>
+        	<dt>摘要:</dt>
+        	<dd><?php echo empty($this->bookInfo['mainInfo']['desc'])?'暂无摘要':$this->bookInfo['mainInfo']['desc']?></dd>
+        	<dt>关键词:</dt>
+        	<dd><?php echo empty($this->bookInfo['mainInfo']['key_words'])?'暂无关键词':$this->bookInfo['mainInfo']['key_words']?></dd>
+        	
+        </dl>
+    
+    </div>
+</div>
+<div id="imgs-info">
+<h5 class="page-header">图片列表</h5>
+<?php foreach ($this->bookInfo['imgsInfo'] as $img){?>
+<div class="col-md-4 col-sm-6">
+	<img src="<?php echo SITE_BASE_URL.'/images/thumbnails/'.$img['img_path'] ?>" class="img-thumbnail img-responsive" />
+</div>
+<?php }?>
+</div>
+

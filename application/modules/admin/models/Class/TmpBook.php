@@ -34,10 +34,16 @@ class Admin_Model_Class_TmpBook
         $res=$this->dbTmpBook->fetchAll(null,'order asc');
         return $res;
     }
-    
+    /**
+     * 清除临时图片
+     * Enter description here ...
+     */
     public function clearTmpImgs(){
         $res=$this->dbTmpBook->getDefaultAdapter()->query('truncate tmp_book')->execute();
-        var_dump($res);
+    }
+    
+    public function getTop5KeyWords(){
+        
     }
 }
 ?>
