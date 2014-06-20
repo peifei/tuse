@@ -32,7 +32,12 @@ class Admin_Model_Class_ImgCatRel
         $this->dbImgCatRel->delete(array('imgid=?'=>$imgId));
     }
     
-    public function get
+    public function getGroupImgsCatInfos($imgIds,$num){
+        $res=$this->dbImgCatRel->getGroupImgsCatInfos($imgIds);
+        if(!empty($res)){
+            return array_slice($res,0,5);
+        }
+    }
     
 }
 ?>

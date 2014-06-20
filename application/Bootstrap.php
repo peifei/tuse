@@ -22,6 +22,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $front = Zend_Controller_Front::getInstance();
         //注册布局插件
         $front->registerPlugin(new Application_Plugin_LayoutSelecter());
+        //注册访问控制器
+        $front->registerPlugin(new Application_Plugin_Acl());
     }
 	
 }

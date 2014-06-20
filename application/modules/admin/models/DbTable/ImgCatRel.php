@@ -20,7 +20,7 @@ class Admin_Model_DbTable_ImgCatRel extends Zend_Db_Table_Abstract
         if(is_array($imgIds)){
             $imgIds=implode(',', $imgIds);
         }
-        $sql='select b.name,count(b.name) from img_cat_rel as a inner join img_cat_detail as b on a.cat_detailid=b.id where a.imgid in('.$imgIds.') group by b.name';
+        $sql='select b.name,count(b.name) as cnt from img_cat_rel as a inner join img_cat_detail as b on a.cat_detailid=b.id where a.imgid in('.$imgIds.') group by b.name order by cnt desc';
         $res=$this->_db->fetchAll($sql);
         return $res;
     }

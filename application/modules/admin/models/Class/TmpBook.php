@@ -43,7 +43,14 @@ class Admin_Model_Class_TmpBook
     }
     
     public function getTop5KeyWords(){
-        
+        $clImgCatRel=new Admin_Model_Class_ImgCatRel();
+        $tmpImgs=$this->getTmpImgs();
+        $imgIds=array();
+        foreach ($tmpImgs as $tmpImg){
+            $imgIds[]=$tmpImg['img_id'];
+        }
+        $keyWords=$clImgCatRel->getGroupImgsCatInfos($imgIds, 5);
+        return $keyWords;
     }
 }
 ?>
