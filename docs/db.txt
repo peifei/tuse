@@ -116,3 +116,6 @@ CREATE TABLE `tuse`.`user` (
 `pwd` VARCHAR( 50 ) NOT NULL ,
 `type` VARCHAR( 10 ) NOT NULL
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+INSERT INTO `user` (`id`, `name`, `salt`, `pwd`, `type`) VALUES
+(1, '174914225@qq.com', '39xhth9htuzvvtyl2gt0', '120d3a7fd8c8fd4b6d62d40d1198d6ba', 'admin');
