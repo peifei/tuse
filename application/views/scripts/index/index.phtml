@@ -51,7 +51,7 @@
 <?php if(count($this->bookList)>0){?>
 <?php foreach ($this->bookList as $book){?>
 <div class="col-lg-3 col-md-4 col-sm-6 bookinfo"><a href="<?php echo SITE_BASE_URL.'/pdf/'.$book['path'] ?>"><img class="img-thumbnail img-responsive" src="<?php echo SITE_BASE_URL.'/pdf/'.$book['cover_path'] ?>"/></a>
-<div class="hbtn"><a href="#" class="btn btn-default">查看详细内容</a></div>
+<div class="hbtn"><a href="<?php echo SITE_BASE_URL.'/book/detail?bid='.$book['id']?>" class="btn btn-default">查看详细内容</a></div>
 </div>
 <?php }?>
 <?php }?>
